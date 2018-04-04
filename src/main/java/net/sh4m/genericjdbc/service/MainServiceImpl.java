@@ -51,15 +51,6 @@ public class MainServiceImpl implements MainService {
 		conditionProp.setColumn1("TORNADO_LOCATION.LOCATION_ID");
 		conditionProp.setColumn2orValue("TORNADO_PROJECT.FK_LOCATION_ID");
 		conditionPropList.add(conditionProp );
-		
-		//condition
-		ConditionPropertiesObj conditionProp2 = new ConditionPropertiesObj();
-		conditionProp2.setCondition(" = ");
-		conditionProp2.setColumn1("TORNADO_LOCATION.LOCATION_ID");
-		conditionProp2.setColumn2orValue("1");
-		conditionPropList.add(conditionProp2  );
-		
-		
 		colProp.setCondition(conditionPropList );
 		columnPropList.add(colProp);
 		
@@ -78,7 +69,15 @@ public class MainServiceImpl implements MainService {
 		columnPropList.add(colProp2 );
 		
 		
-		res = sh4mGenericJdbcRepi.selectAll(jdbcTemplate ,ProjectTableConstant.TBL_PROJECT ,columnPropList ,column );
+		List<ConditionPropertiesObj> whereConditionList = new ArrayList<ConditionPropertiesObj>();
+		ConditionPropertiesObj whereCondition1 = new ConditionPropertiesObj();
+		whereCondition1.setAnd(true);
+		whereCondition1.setCondition(" = ");
+		whereCondition1.setColumn1("TORNADO_LOCATION.LOCATION_ID");
+		whereCondition1.setColumn2orValue(1);
+		whereConditionList.add(whereCondition1  );
+		
+		res = sh4mGenericJdbcRepi.selectAll(jdbcTemplate ,ProjectTableConstant.TBL_PROJECT ,columnPropList ,column,whereConditionList );
 		return res;
 	}
 

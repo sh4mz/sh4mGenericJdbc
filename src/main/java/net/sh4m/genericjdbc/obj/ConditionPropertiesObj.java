@@ -8,6 +8,7 @@ package net.sh4m.genericjdbc.obj;
 import java.util.List;
 
 public class ConditionPropertiesObj {
+	private boolean and;
 	private String condition;
 	private String column1;
 	private Object column2orValue;
@@ -37,6 +38,12 @@ public class ConditionPropertiesObj {
 	}
 	public void setColumn2orValue(Object column2orValue) {
 		this.column2orValue = column2orValue;
+	}
+	public boolean isAnd() {
+		return and;
+	}
+	public void setAnd(boolean and) {
+		this.and = and;
 	}
 	
 	

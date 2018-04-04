@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import net.sh4m.genericjdbc.obj.ColumnPropertiesObj;
+import net.sh4m.genericjdbc.obj.ConditionPropertiesObj;
+import net.sh4m.genericjdbc.obj.QueryPropertiesObj;
 import net.sh4m.genericjdbc.service.SqlGeneratorService;
 @Service
 public class Sh4mGenericJdbcRepositoryImpl implements Sh4mGenericJdbcRepository {
@@ -49,10 +51,25 @@ public class Sh4mGenericJdbcRepositoryImpl implements Sh4mGenericJdbcRepository 
 	 * @see net.sh4m.genericjdbc.repository.Sh4mGenericJdbcRepository#selectAll(org.springframework.jdbc.core.JdbcTemplate, java.lang.String, java.util.List, java.lang.String[])
 	 */
 	public List<Map<String, Object>> selectAll(JdbcTemplate jdbcTemplate, String tblProject,
-			List<ColumnPropertiesObj> columnPropList, String[] column) {
-		String selectSQL = sqlGeneratorService.selectAll(tblProject,columnPropList, column);
-		logger.info("selectAll : " + selectSQL);
-		List<Map<String, Object>> res = jdbcTemplate.queryForList(selectSQL);
+			List<ColumnPropertiesObj> columnPropList, String[] column, List<ConditionPropertiesObj> whereConditionList) {
+		//String selectSQL = sqlGeneratorService.selectAll(tblProject,columnPropList, column);
+		QueryPropertiesObj queryProp = sqlGeneratorService.selectAll(tblProject,columnPropList, column, whereConditionList);
+		logger.info("selectAll : " + queryProp.getSql());
+		
+		List<Map<String, Object>> res = null;
+		if(queryProp.getParameterList() != null && !queryProp.getParameterList().isEmpty()){
+			for(Object eachVal : queryProp.getParameterList()){
+				logger.info("parameter : " + eachVal);
+			}
+			
+			res = jdbcTemplate.queryForList(queryProp.getSql(),queryProp.getParameterList().toArray());
+		} else {
+			res = jdbcTemplate.queryForList(queryProp.getSql());
+		}
+		
+		
+		
+		
 		return res;
 	}
 

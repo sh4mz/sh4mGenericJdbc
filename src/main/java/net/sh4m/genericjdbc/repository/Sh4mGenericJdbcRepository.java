@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import net.sh4m.genericjdbc.obj.ColumnPropertiesObj;
+import net.sh4m.genericjdbc.obj.ConditionPropertiesObj;
 
 public interface Sh4mGenericJdbcRepository {
 
@@ -34,9 +35,10 @@ public interface Sh4mGenericJdbcRepository {
 	 * @param tblProject
 	 * @param columnPropList
 	 * @param column
+	 * @param whereConditionList 
 	 * @return
 	 */
 	List<Map<String, Object>> selectAll(JdbcTemplate jdbcTemplate, String tblProject,
-			List<ColumnPropertiesObj> columnPropList, String[] column);
+			List<ColumnPropertiesObj> columnPropList, String[] column, List<ConditionPropertiesObj> whereConditionList);
 
 }

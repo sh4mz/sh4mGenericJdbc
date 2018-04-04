@@ -5,6 +5,7 @@
  */
 package net.sh4m.genericjdbc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.google.common.collect.Lists;
 
 import net.sh4m.genericjdbc.obj.ColumnPropertiesObj;
 import net.sh4m.genericjdbc.obj.ConditionPropertiesObj;
+import net.sh4m.genericjdbc.obj.QueryPropertiesObj;
 
 @Service
 public class SqlGeneratorServiceImpl implements SqlGeneratorService {
@@ -52,10 +54,12 @@ public class SqlGeneratorServiceImpl implements SqlGeneratorService {
 	/* (non-Javadoc)
 	 * @see net.sh4m.genericjdbc.service.SqlGeneratorService#selectAll(java.lang.String, java.util.List, java.lang.String[])
 	 */
-	public String selectAll(String tblProject, List<ColumnPropertiesObj> columnPropList, String[] column) {
+	public QueryPropertiesObj selectAll(String tblProject, List<ColumnPropertiesObj> columnPropList, String[] column, List<ConditionPropertiesObj> whereConditionList) {
+		QueryPropertiesObj queryObj = new QueryPropertiesObj();
 		String colString = String.join(",", column);
 		String sql = SELECT + " " + colString + " " + FROM +  tblProject;
 		if(columnPropList != null && !columnPropList.isEmpty()){
+			
 			for(ColumnPropertiesObj eachColProp : columnPropList){
 				String colPropSql = "";
 				String joinTbl = eachColProp.getTableName();
@@ -69,8 +73,9 @@ public class SqlGeneratorServiceImpl implements SqlGeneratorService {
 						}
 						String condition = eachCondition.getCondition();
 						String column1 = eachCondition.getColumn1();
-						String column2 = (String) eachCondition.getColumn2orValue();
-						colPropSql += column1 + " " + condition + " " + column2;
+						
+						//parameterList.add(eachCondition.getColumn2orValue());
+						colPropSql += column1 + " " + condition + " " + eachCondition.getColumn2orValue() ;
 						conditionLoop++;
 					}
 				} else {
@@ -79,8 +84,34 @@ public class SqlGeneratorServiceImpl implements SqlGeneratorService {
 				
 				sql += colPropSql;
 			}
+			
+			
+			
 		}
-		return sql;
+		
+		if(whereConditionList != null && !whereConditionList.isEmpty()){
+			String colPropSql = "";
+			List<Object> parameterList = new ArrayList<Object>();
+			
+			for(ConditionPropertiesObj eachCondition : whereConditionList ){
+				if(eachCondition.isAnd()){
+					colPropSql += " AND ";
+				} else {
+					colPropSql += " OR ";
+				}
+				String condition = eachCondition.getCondition();
+				String column1 = eachCondition.getColumn1();
+				
+				parameterList.add(eachCondition.getColumn2orValue());
+				colPropSql += column1 + " " + condition + " ? " ;
+				
+			}
+			queryObj.setParameterList(parameterList);
+			sql += colPropSql;
+		}
+		
+		queryObj.setSql(sql);
+		return queryObj;
 	}
 
 }

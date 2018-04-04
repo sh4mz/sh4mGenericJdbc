@@ -10,6 +10,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import net.sh4m.genericjdbc.obj.ColumnPropertiesObj;
+import net.sh4m.genericjdbc.obj.ConditionPropertiesObj;
+import net.sh4m.genericjdbc.obj.QueryPropertiesObj;
 
 
 public interface SqlGeneratorService {
@@ -31,9 +33,10 @@ public interface SqlGeneratorService {
 	 * @param tblProject
 	 * @param columnPropList
 	 * @param column
+	 * @param whereConditionList 
 	 * @return
 	 */
-	String selectAll(String tblProject, List<ColumnPropertiesObj> columnPropList, String[] column);
+	QueryPropertiesObj selectAll(String tblProject, List<ColumnPropertiesObj> columnPropList, String[] column, List<ConditionPropertiesObj> whereConditionList);
 
 	
     
