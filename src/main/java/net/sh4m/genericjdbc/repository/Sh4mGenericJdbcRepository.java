@@ -41,4 +41,15 @@ public interface Sh4mGenericJdbcRepository {
 	List<Map<String, Object>> selectAll(JdbcTemplate jdbcTemplate, String tblProject,
 			List<ColumnPropertiesObj> columnPropList, String[] column, List<ConditionPropertiesObj> whereConditionList);
 
+	/**
+	 * @param jdbcTemplate
+	 * @param mainTableName
+	 * @param joinPropList
+	 * @param column
+	 * @param wherePropList
+	 * @return
+	 */
+	List<Map<String, Object>> select(JdbcTemplate jdbcTemplate, String mainTableName,
+			List<ColumnPropertiesObj> joinPropList, String[] column, List<ConditionPropertiesObj> wherePropList);
+
 }

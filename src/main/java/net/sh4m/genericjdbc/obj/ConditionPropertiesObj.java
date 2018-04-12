@@ -7,19 +7,17 @@ package net.sh4m.genericjdbc.obj;
 
 import java.util.List;
 
+import net.sh4m.genericjdbc.ConditionEnum;
+import net.sh4m.genericjdbc.OperatorEnum;
+
 public class ConditionPropertiesObj {
-	private boolean and;
-	private String condition;
+	private ConditionEnum condition;
+	private OperatorEnum operator;
 	private String column1;
 	private Object column2orValue;
-	private List<String> inListValue;
+	private List<Object> inListValue;
 	
-	public String getCondition() {
-		return condition;
-	}
-	public void setCondition(String condition) {
-		this.condition = condition;
-	}
+	
 	public String getColumn1() {
 		return column1;
 	}
@@ -27,23 +25,29 @@ public class ConditionPropertiesObj {
 		this.column1 = column1;
 	}
 	
-	public List<String> getInListValue() {
-		return inListValue;
-	}
-	public void setInListValue(List<String> inListValue) {
-		this.inListValue = inListValue;
-	}
 	public Object getColumn2orValue() {
 		return column2orValue;
 	}
 	public void setColumn2orValue(Object column2orValue) {
 		this.column2orValue = column2orValue;
 	}
-	public boolean isAnd() {
-		return and;
+	public ConditionEnum getCondition() {
+		return condition;
 	}
-	public void setAnd(boolean and) {
-		this.and = and;
+	public void setCondition(ConditionEnum condition) {
+		this.condition = condition;
+	}
+	public OperatorEnum getOperator() {
+		return operator;
+	}
+	public void setOperator(OperatorEnum operator) {
+		this.operator = operator;
+	}
+	public List<Object> getInListValue() {
+		return inListValue;
+	}
+	public void setInListValue(List<Object> inListValue) {
+		this.inListValue = inListValue;
 	}
 	
 	

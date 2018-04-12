@@ -36,7 +36,9 @@ public class MainController {
         
 		Map<String, Object> resp = new HashMap<String, Object>() ;
 		
-		List<Map<String,Object>> result = mainService.selectAllProject();
+		List<Map<String,Object>> result = null;
+		//result = mainService.selectAllProject();
+		result = mainService.selectTest1();
 		resp.put("result", result);
 		return resp;
 	

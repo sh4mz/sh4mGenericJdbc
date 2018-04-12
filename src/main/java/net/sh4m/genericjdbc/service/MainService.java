@@ -15,4 +15,9 @@ public interface MainService {
 	 */
 	List<Map<String, Object>> selectAllProject();
 
+	/**
+	 * @return
+	 */
+	List<Map<String, Object>> selectTest1();
+
 }
