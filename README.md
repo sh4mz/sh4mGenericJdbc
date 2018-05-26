@@ -1,10 +1,17 @@
 # sh4mGenericJdbc
 
-SOURCE CODE IS HALF COOK. ITS NOT READY FOR TESTING OR PRODUCTION
+Still under development. SOURCE CODE IS HALF COOK. ITS NOT READY FOR TESTING OR PRODUCTION
 
-Im try to create simple generic jdbc using spring
+Creating Simple Generic SQL Builder.
 
-Still under development
+Support
+ - Normal Query
+ - Join Query
+ - Count Query
+ - Update Query
+ - Delete Query (Hard delete)
+
+Ref : https://gist.github.com/woemler/c6f901bc1ecc3c12eb2e
 
 Eclipse
 Java 8.0+
